@@ -65,9 +65,14 @@ def arg():
       help='Decode given words', dest='decode', const=True, default=False
       )
   parser.add_argument(
+      '-m, --multiple', action='store_const',
+      help='Read multiple strings from stdin', dest='multiple', const=True, default=False
+      )
+  parser.add_argument(
       '-s, --string', type=str, 
       help='Accept string on commandline instead of stdin', metavar='L', dest='string'
       )
+
   return parser
 
 def main():
@@ -75,14 +80,15 @@ def main():
   
   if args.string:
     strings = [args.string]
-  else:
+  elif args.multiple:
     strings = []
     try:
       while True:
         strings.append(input().strip())
     except EOFError:
       pass
-
+  else:
+    strings = [input().strip()]
   for s in strings:
     data = read(args.decode, args.ip4, s)
     print(write(args.decode, args.ip4, data))
