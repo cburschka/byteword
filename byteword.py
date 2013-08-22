@@ -47,7 +47,7 @@ def write(decode, ip4, num):
   elif ip4:
     return '.'.join(num)
   else:
-    return ''.join(map(hex, num))
+    return ''.join(('0'+hex(i)[2:])[-2:] for i in num)
       
 
 def arg():
