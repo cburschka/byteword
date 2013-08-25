@@ -1,4 +1,4 @@
-B1;3402;0cbyteword
+byteword
 ========
 
 Render binary data as a sequence of English words using the [PGP word list](http://en.wikipedia.org/wiki/PGP_word_list).
