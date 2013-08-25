@@ -5,7 +5,7 @@ Render binary data as a sequence of English words using the [PGP word list](http
 
 help
 ----
-
+```
 usage: byteword [options]
 
 Encode bytes as English words.
@@ -17,3 +17,4 @@ optional arguments:
   -d, --decode          Decode given words
   -m, --multiple        Read multiple strings from stdin
   -s, --string L        Accept string on commandline instead of stdin
+```
