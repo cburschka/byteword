@@ -32,20 +32,34 @@ def reverse(words):
 WORDS = list(read_dict(DICT))
 REV = reverse(WORDS)
 
-def read(decode, ip4, s):
+def read(decode, format, s):
   if decode:
     return [REV[w] for w in s.split()]
-  elif ip4:
+  elif format=='ip4':
     return list(map(int, s.split('.')))
+  elif format=='ip6':
+    y = [int(x, 16) if x else 0 for x in s.split(':')]
+    z = []
+    for x in y:
+      z.append(x // 256)
+      z.append(x % 256)
+    return z
+  elif format=='mac':
+    return [int(x, 16) for x in s.split(':')]
   else:
     return [int(s[i:i+2],16) for i in range(0,len(s),2)]
     
 
-def write(decode, ip4, num):
+def write(decode, format, num):
   if not decode:
     return ' '.join(WORDS[i] for i in num)
-  elif ip4:
+  elif format == 'ip4':
     return '.'.join(num)
+  elif format == 'ip6':
+    num = [num[i] * 256 + num[i+1] for i in range(0,len(num),2)]
+    return ':'.join(('000'+hex(i)[2:])[-4:] for i in num)
+  elif format == 'mac':
+    return ':'.join(('0'+hex(i)[2:])[-2:] for i in num)
   else:
     return ''.join(('0'+hex(i)[2:])[-2:] for i in num)
       
@@ -57,8 +71,8 @@ def arg():
   '''
       )
   parser.add_argument(
-      '-i, --ip4', action='store_const', 
-      help='Use IPv4 dotted decimal format', dest='ip4', const=True, default=False
+      '-f, --format', type=str, 
+      help='Which format to use', dest='format', metavar='ip4|ip6|mac'
       )
   parser.add_argument(
       '-d, --decode', action='store_const', 
@@ -90,8 +104,8 @@ def main():
   else:
     strings = [input().strip()]
   for s in strings:
-    data = read(args.decode, args.ip4, s)
-    print(write(args.decode, args.ip4, data))
+    data = read(args.decode, args.format, s)
+    print(write(args.decode, args.format, data))
 
 
 main()
