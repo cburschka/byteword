@@ -1,4 +1,4 @@
-byteword
+B1;3402;0cbyteword
 ========
 
 Render binary data as a sequence of English words using the [PGP word list](http://en.wikipedia.org/wiki/PGP_word_list).
@@ -16,5 +16,6 @@ optional arguments:
                         Which format to use
   -d, --decode          Decode given words
   -m, --multiple        Read multiple strings from stdin
-  -s, --string L        Accept string on commandline instead of stdin
+  -s, --string <string>
+                        Accept string on commandline instead of stdin
 ```
