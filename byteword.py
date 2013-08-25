@@ -19,21 +19,31 @@ import argparse
 
 DICT='words.txt'
 
-def read_dict(txt):
-  return open(txt).read().strip().split()
 
 def reverse(words):
   r = {}
   for i,w in enumerate(words):
-    r[w] = i
-    
+    r[w[0]] = r[w[1]] = i
+  return r
+  
+def checker(words):
+  r = {}
+  for w in words:
+    r[w[0]] = 0
+    r[w[1]] = 1
   return r
 
-WORDS = list(read_dict(DICT))
+WORDS = [s.strip().split() for s in open(DICT).read().strip().split()]
 REV = reverse(WORDS)
+CHECK = checker(WORDS)
+
+def check(s):
+  return all(w in CHECK for w in s) and all(CHECK[w] == i % 2 for i,w in enumerate(s))
 
 def read(decode, format, s):
   if decode:
+    if not check(s):
+      raise ValueError("Invalid word code.")
     return [REV[w] for w in s.split()]
   elif format=='ip4':
     return list(map(int, s.split('.')))
