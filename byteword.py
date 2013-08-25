@@ -60,18 +60,18 @@ def read(decode, format, s):
     return [int(s[i:i+2],16) for i in range(0,len(s),2)]
     
 
-def write(decode, format, num):
+def write(decode, format, bytes):
   if not decode:
-    return ' '.join(WORDS[i] for i in num)
+    return ' '.join(WORDS[x][i%2] for i,x in enumerate(bytes))
   elif format == 'ip4':
-    return '.'.join(num)
+    return '.'.join(bytes)
   elif format == 'ip6':
-    num = [num[i] * 256 + num[i+1] for i in range(0,len(num),2)]
-    return ':'.join(('000'+hex(i)[2:])[-4:] for i in num)
+    bytes = [bytes[i] * 256 + bytes[i+1] for i in range(0,len(bytes),2)]
+    return ':'.join(('000'+hex(i)[2:])[-4:] for i in bytes)
   elif format == 'mac':
-    return ':'.join(('0'+hex(i)[2:])[-2:] for i in num)
+    return ':'.join(('0'+hex(i)[2:])[-2:] for i in bytes)
   else:
-    return ''.join(('0'+hex(i)[2:])[-2:] for i in num)
+    return ''.join(('0'+hex(i)[2:])[-2:] for i in bytes)
       
 
 def arg():
