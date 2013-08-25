@@ -95,7 +95,7 @@ def arg():
       )
   parser.add_argument(
       '-s, --string', type=str, 
-      help='Accept string on commandline instead of stdin', metavar='L', dest='string'
+      help='Accept string on commandline instead of stdin', metavar='<string>', dest='string'
       )
 
   return parser
