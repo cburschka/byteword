@@ -16,8 +16,9 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import argparse
+import os
 
-DICT='words.txt'
+DICT=os.path.dirname(os.path.realpath(__file__)) + '/words.txt'
 
 
 def reverse(words):
