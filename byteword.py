@@ -34,18 +34,19 @@ def checker(words):
     r[w[1]] = 1
   return r
 
-WORDS = [s.strip().split() for s in open(DICT).read().strip().split("\n")]
+WORDS = [s.strip().split() for s in open(DICT).read().lower().strip().split("\n")]
 REV = reverse(WORDS)
 CHECK = checker(WORDS)
 
-def check(s):
-  return all(w in CHECK for w in s) and all(CHECK[w] == i % 2 for i,w in enumerate(s))
+def check(words):
+  return all(w in CHECK for w in words) and all(CHECK[w] == i % 2 for i,w in enumerate(words))
 
 def read(decode, format, s):
   if decode:
-    if not check(s):
+    words = s.lower().strip().split()
+    if not check(words):
       raise ValueError("Invalid word code.")
-    return [REV[w] for w in s.split()]
+    return [REV[w] for w in words]
   elif format=='ip4':
     return list(map(int, s.split('.')))
   elif format=='ip6':
