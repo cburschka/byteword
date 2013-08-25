@@ -33,7 +33,7 @@ def checker(words):
     r[w[1]] = 1
   return r
 
-WORDS = [s.strip().split() for s in open(DICT).read().strip().split()]
+WORDS = [s.strip().split() for s in open(DICT).read().strip().split("\n")]
 REV = reverse(WORDS)
 CHECK = checker(WORDS)
 
